@@ -8,6 +8,7 @@ export interface WeatherDataType {
   };
   weather: Array<{
     id: number;
+    icon: string;
     main: string;
     description: string;
   }>;
