@@ -30,7 +30,6 @@ export default function Home() {
   const [city, setCity] = useState("");
   const [weatherData, setWeatherData] = useState<WeatherDataType | null>(null);
   const [error, setError] = useState<string>("")
-  console.log(weatherData)
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,12 +51,11 @@ export default function Home() {
     setCity("");
   }
 
-
   return (
-    <div className={`w-full h-screen flex-shrink-0 overflow-hidden`}>
-      <img className="w-full h-full" src='/storm-clouds.jpg' alt="cloud" />
+    <div className='w-full h-screen flex-shrink-0 overflow-hidden'>
       <div className="w-full h-screen flex items-center justify-center fixed top-0 left-0">
         <div className="w-[90%] md:w-[80%] lg:w-[40%] p-5">
+          {/* Error message */}
           {error && <motion.div 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -67,6 +65,7 @@ export default function Home() {
             {error}
           </motion.div>}
           
+          {/* Weather data */}
           {weatherData && (
             <motion.div 
               initial={{ opacity: 0, y: 10 }}
@@ -111,22 +110,24 @@ export default function Home() {
               >
                 <div className="flex flex-col items-center gap-2">
                   <p className="text-white/70">Feels like</p>
-                  <Thermometer size={20} className="text-[#fccc79]" />
-                  <p className="text-white">{weatherData?.main.feels_like}&deg;C</p>
+                  <Thermometer size={20} className="text-[#f1b958]" />
+                  <p className="text-white">{Math.round(weatherData?.main.feels_like)}&deg;C</p>
                 </div>
                 <div className="flex flex-col items-center gap-2">
                   <p className="text-white/70">Humidity</p>
-                  <Droplets size={20} className="text-[#fccc79]" />
+                  <Droplets size={20} className="text-[#f1b958]" />
                   <p className="text-white">{weatherData?.main.humidity}%</p>
                 </div>
                 <div className="flex flex-col items-center gap-2">
                   <p className="text-white/70">Wind</p>
-                  <Wind size={20} className="text-[#fccc79]" />
+                  <Wind size={20} className="text-[#f1b958]" />
                   <p className="text-white">{weatherData?.wind.speed}m/s</p>
                 </div>
               </motion.div>
             </motion.div>
           )}
+
+          {/* Form */}
           <form onSubmit={handleSearch} className="flex gap-1.5">
             <Input
               type="text"
